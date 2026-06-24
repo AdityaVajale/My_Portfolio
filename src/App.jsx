@@ -56,12 +56,27 @@ const values = [
 ];
 
 const services = [
-  { icon: Code2, title: "Full Stack Development", desc: "Build complete web applications using Java, Spring Boot & Angular with clean architecture." },
-  { icon: Server, title: "Backend Development", desc: "Design REST APIs, handle database operations, and build scalable backend systems." },
-  { icon: Palette, title: "UI/UX Design", desc: "Create modern, responsive, and user-friendly interfaces with smooth experience." },
-  { icon: Brain, title: "Problem Solving", desc: "Strong logical thinking and ability to solve real-world problems efficiently." },
+  {
+    icon: Code2,
+    title: "Business Website Development",
+    desc: "Professional websites for salons, cafes, clinics and local businesses."
+  },
+  {
+    icon: Server,
+    title: "Custom Web Applications",
+    desc: "Spring Boot and Angular applications for business automation."
+  },
+  {
+    icon: Palette,
+    title: "Portfolio Websites",
+    desc: "Modern portfolio and personal branding websites."
+  },
+  {
+    icon: Brain,
+    title: "SEO Optimized Websites",
+    desc: "Fast loading websites designed to rank on Google."
+  }
 ];
-
 const skills = [
   { group: "Languages", items: ["Java", "JavaScript", "SQL", "HTML", "CSS"] },
   { group: "Frontend", items: ["Angular", "ReactJS", "Figma"] },
@@ -135,8 +150,7 @@ function App() {
             Building things, <span className="text-gradient">one line at a time</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Passionate developer building scalable apps using Java, Spring Boot & Angular.
-          </p>
+Passionate Full Stack Developer based in Thergaon, Pune. I help local businesses, salons, cafes, clinics, and startups build modern websites and web applications using Java, Spring Boot, Angular, and React.          </p>
           <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
             {values.map((v) => (
               <div key={v.label} className="glass card-hover rounded-2xl p-6">
@@ -227,6 +241,60 @@ function App() {
         </div>
       </section>
 
+{/* Website Services Section */}
+
+<section className="py-24 px-6">
+  <div className="mx-auto max-w-6xl">
+    
+    <div className="text-center mb-14">
+      <p className="text-sm uppercase tracking-widest text-primary mb-3">
+        Website Development Services
+      </p>
+
+      <h2 className="text-4xl md:text-5xl font-bold">
+        Website Developer in Pune
+      </h2>
+
+      <p className="mt-6 text-lg text-muted-foreground max-w-3xl mx-auto">
+        Helping salons, cafes, clinics, restaurants, local stores and startups
+        establish a strong online presence with modern, responsive and
+        SEO-friendly websites.
+      </p>
+    </div>
+
+    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {[
+        { icon: "💇", title: "Salon Website Development" },
+        { icon: "☕", title: "Cafe Website Development" },
+        { icon: "🩺", title: "Clinic Website Development" },
+        { icon: "🧑‍💼", title: "Portfolio Website Development" },
+        { icon: "🚀", title: "Landing Page Development" },
+        { icon: "🏬", title: "Business Website Development" },
+      ].map((service) => (
+        <div
+          key={service.title}
+          className="glass card-hover rounded-2xl p-6"
+        >
+          <div className="text-4xl mb-4">
+            {service.icon}
+          </div>
+
+          <h3 className="font-display font-bold text-xl mb-3">
+            {service.title}
+          </h3>
+
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            Professional, mobile-friendly and SEO-optimized websites designed
+            to help businesses grow and attract more customers online.
+          </p>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+
       {/* Contact */}
       <section id="contact" className="py-24 px-6">
         <div className="mx-auto max-w-4xl glass rounded-3xl p-10 md:p-16 text-center relative overflow-hidden">
@@ -272,7 +340,8 @@ function App() {
       </section>
 
       <footer className="py-8 px-6 text-center text-sm text-muted-foreground border-t border-border">
-        © {new Date().getFullYear()} Aditya Vajale. Crafted with passion.
+        © {new Date().getFullYear()} Aditya Vajale |
+Full Stack Developer in Pune, Maharashtra
       </footer>
     </div>
   );
