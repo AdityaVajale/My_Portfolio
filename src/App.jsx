@@ -16,6 +16,13 @@ import unitrackImg from "./assets/unitrack.jpg";
 import dashiveImg from "./assets/dashive.jpg";
 import todoImg from "./assets/todo.jpg";
 
+import salonImg from "./assets/salon.jpg";
+import cafeImg from "./assets/cafe.jpg";
+import clinicImg from "./assets/clinic.jpg";
+import portfolioImg from "./assets/portfolio.jpg";
+import landingImg from "./assets/landing-page.jpg";
+import businessImg from "./assets/business.jpg";
+
 
 // export const Route = createFileRoute("/")({
 //   head: () => ({
@@ -28,18 +35,6 @@ import todoImg from "./assets/todo.jpg";
 //   }),
 //   component: Portfolio,
 // });
-
-
-// const Github = () => <span>Github</span>;
-// const Linkedin = () => <span>LinkedIn</span>;
-// const Mail = () => <span>📧</span>;
-// const Phone = () => <span>📱</span>;
-// const ArrowRight = () => <span>→</span>;
-// const Code2 = () => <span>💻</span>;
-// const Server = () => <span>🖥️</span>;
-// const Palette = () => <span>🎨</span>;
-// const Brain = () => <span>🧠</span>;
-// const ExternalLink = () => <span>🔗</span>;
 const nav = [
   { href: "#about", label: "About" },
   { href: "#services", label: "Services" },
@@ -120,9 +115,11 @@ function App() {
             <h1 className="text-5xl md:text-7xl font-bold leading-tight">
               Hi, I'm <span className="text-gradient">Aditya Vajale</span>
             </h1>
-            <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-lg">
-              Full Stack Developer crafting modern web experiences 🚀
-            </p>
+            <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-xl">
+  Freelance Full Stack Developer based in Pune helping salons, cafes,
+  clinics and local businesses build modern, SEO-friendly websites that
+  attract more customers.
+</p>
             <div className="mt-8 flex flex-wrap gap-4">
               <a href="#projects" className="inline-flex items-center gap-2 bg-gradient-primary text-primary-foreground font-medium px-6 py-3 rounded-lg shadow-glow hover:scale-[1.02] transition-transform">
                 Explore Work <ArrowRight className="size-4" />
@@ -149,8 +146,13 @@ function App() {
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Building things, <span className="text-gradient">one line at a time</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-Passionate Full Stack Developer based in Thergaon, Pune. I help local businesses, salons, cafes, clinics, and startups build modern websites and web applications using Java, Spring Boot, Angular, and React.          </p>
+          I'm a <b>Freelance Full Stack Developer based </b>in <b>Thergaon, Pune. </b>I help
+salons, cafes, clinics, restaurants and local businesses build
+professional websites that increase their online presence and generate
+more customer inquiries.
+
+From simple business websites to custom web applications, I focus on
+<b>creating fast, mobile-friendly </b>and <b>SEO-optimized solutions.</b>
           <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
             {values.map((v) => (
               <div key={v.label} className="glass card-hover rounded-2xl p-6">
@@ -263,31 +265,61 @@ Passionate Full Stack Developer based in Thergaon, Pune. I help local businesses
     </div>
 
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+    
       {[
-        { icon: "💇", title: "Salon Website Development" },
-        { icon: "☕", title: "Cafe Website Development" },
-        { icon: "🩺", title: "Clinic Website Development" },
-        { icon: "🧑‍💼", title: "Portfolio Website Development" },
-        { icon: "🚀", title: "Landing Page Development" },
-        { icon: "🏬", title: "Business Website Development" },
+        // { icon: "💇", title: "Salon Website Development" },
+        // { icon: "☕", title: "Cafe Website Development" },
+        // { icon: "🩺", title: "Clinic Website Development" },
+        // { icon: "🧑‍💼", title: "Portfolio Website Development" },
+        // { icon: "🚀", title: "Landing Page Development" },
+        // { icon: "🏬", title: "Business Website Development" },
+         { img: salonImg, title: "Salon Website Development" },
+  { img: cafeImg, title: "Cafe Website Development" },
+  { img: clinicImg, title: "Clinic Website Development" },
+  { img: portfolioImg, title: "Portfolio Website Development" },
+  { img: landingImg, title: "Landing Page Development" },
+  { img: businessImg, title: "Business Website Development" },
       ].map((service) => (
+
+        // <div
+        //   key={service.title}
+        //   className="glass card-hover rounded-2xl p-6"
+        // >
+        //   <div className="text-4xl mb-4">
+        //     {service.icon}
+        //   </div>
+
+        //   <h3 className="font-display font-bold text-xl mb-3">
+        //     {service.title}
+        //   </h3>
+
+        //   <p className="text-sm text-muted-foreground leading-relaxed">
+        //     Professional, mobile-friendly and SEO-optimized websites designed
+        //     to help businesses grow and attract more customers online.
+        //   </p>
+        // </div>
+
         <div
-          key={service.title}
-          className="glass card-hover rounded-2xl p-6"
-        >
-          <div className="text-4xl mb-4">
-            {service.icon}
-          </div>
+  key={service.title}
+  className="glass card-hover rounded-2xl overflow-hidden"
+>
+  <img
+    src={service.img}
+    alt={service.title}
+    className="w-full h-48 object-cover transition-transform duration-500 hover:scale-105"
+  />
 
-          <h3 className="font-display font-bold text-xl mb-3">
-            {service.title}
-          </h3>
+  <div className="p-6">
+    <h3 className="font-display font-bold text-xl mb-3">
+      {service.title}
+    </h3>
 
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            Professional, mobile-friendly and SEO-optimized websites designed
-            to help businesses grow and attract more customers online.
-          </p>
-        </div>
+    <p className="text-sm text-muted-foreground leading-relaxed">
+      Professional, mobile-friendly and SEO-optimized websites designed
+      to help businesses grow and attract more customers online.
+    </p>
+  </div>
+</div>
       ))}
     </div>
 
