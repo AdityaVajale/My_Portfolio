@@ -86,7 +86,7 @@ const projects = [
   {
     emoji: "🍰",
     title: "SweetCrumbs",
-    desc: "Online cake ordering platform with payment integration.",
+    desc: "Online cake ordering platform",
     tags: ["ReactJS"],
     img: cakeImg,
     live: "https://demo-cake-store-eight.vercel.app/",
