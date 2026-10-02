@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   Github,
   Linkedin,
@@ -11,6 +11,12 @@ import {
   Brain,
   ExternalLink,
   X,
+  MessageCircle,
+  FileText,
+  Laptop,
+  CheckCircle2,
+  Rocket,
+  LifeBuoy,
 } from "lucide-react";
 import profileImg from "./assets/profile.jpg";
 import unitrackImg from "./assets/unitrack.jpg";
@@ -41,6 +47,7 @@ const nav = [
   { href: "#services", label: "Services" },
   { href: "#skills", label: "Skills" },
   { href: "#projects", label: "Projects" },
+  { href: "#process", label: "Process" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -116,6 +123,138 @@ const projects = [
     img: todoImg,
   }
 ];
+
+function ProcessTimeline() {
+  const steps = [
+    { icon: MessageCircle, title: "Free Consultation", desc: "Tell me about your business, your customers and what you want your website to do. No cost, no pressure." },
+    { icon: FileText, title: "Quote & Timeline", desc: "You get a fixed price and a delivery date before any work starts, so there are no surprises." },
+    { icon: Laptop, title: "Design & Development", desc: "I build your mobile-friendly, SEO-ready website using your logo, photos and content." },
+    { icon: CheckCircle2, title: "Review & Changes", desc: "You check the website and I make the changes you ask for until you are fully happy." },
+    { icon: Rocket, title: "Launch", desc: "Your website goes live with domain and hosting set up, and your Google Business profile connected." },
+    { icon: LifeBuoy, title: "Support", desc: "I stay available after launch for updates, fixes and any help you need." },
+  ];
+
+  const [visible, setVisible] = useState([]);
+  const [progress, setProgress] = useState(0);
+  const wrapRef = useRef(null);
+  const stepRefs = useRef([]);
+
+  useEffect(() => {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            const i = Number(e.target.dataset.i);
+            setVisible((v) => (v.includes(i) ? v : [...v, i]));
+          }
+        });
+      },
+      { threshold: 0.35 }
+    );
+    stepRefs.current.forEach((el) => el && io.observe(el));
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const el = wrapRef.current;
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const p = (window.innerHeight * 0.6 - r.top) / r.height;
+      setProgress(Math.min(1, Math.max(0, p)));
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
+  return (
+    <section id="process" className="py-24 px-6">
+      <style>{`
+        @keyframes ptLeft{from{opacity:0;transform:translateX(-60px)}to{opacity:1;transform:none}}
+        @keyframes ptRight{from{opacity:0;transform:translateX(60px)}to{opacity:1;transform:none}}
+        @keyframes ptPop{0%{transform:scale(0)}70%{transform:scale(1.25)}100%{transform:scale(1)}}
+        @keyframes ptRing{0%{box-shadow:0 0 0 0 rgba(120,120,255,.5)}100%{box-shadow:0 0 0 18px rgba(120,120,255,0)}}
+        .pt-l{animation:ptLeft .7s ease-out both}
+        .pt-r{animation:ptRight .7s ease-out both}
+        .pt-pop{animation:ptPop .5s ease-out both, ptRing 1.2s ease-out .4s 2}
+        @media (max-width:767px){.pt-l{animation-name:ptRight}}
+        @media (prefers-reduced-motion:reduce){.pt-l,.pt-r,.pt-pop{animation:none}}
+      `}</style>
+
+      <div className="mx-auto max-w-5xl">
+        <div className="text-center mb-16">
+          <p className="text-sm uppercase tracking-widest text-primary mb-3">
+            How I Work
+          </p>
+          <h2 className="text-4xl md:text-5xl font-bold">
+            From first call to <span className="text-gradient">live website</span>
+          </h2>
+          <p className="mt-6 text-lg text-muted-foreground max-w-3xl mx-auto">
+            A simple, clear process so you always know what happens next.
+          </p>
+        </div>
+
+        <div ref={wrapRef} className="relative">
+          {/* line */}
+          <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-0.5 -translate-x-1/2 bg-border" />
+          <div
+            className="absolute left-6 md:left-1/2 top-0 w-0.5 -translate-x-1/2 bg-gradient-primary"
+            style={{ height: `${progress * 100}%` }}
+          />
+
+          <div className="space-y-12">
+            {steps.map((s, i) => {
+              const show = visible.includes(i);
+              const left = i % 2 === 0;
+              return (
+                <div
+                  key={s.title}
+                  ref={(el) => (stepRefs.current[i] = el)}
+                  data-i={i}
+                  className={`relative flex ${left ? "md:flex-row" : "md:flex-row-reverse"}`}
+                >
+                  {/* number circle */}
+                  <div className="absolute left-6 md:left-1/2 top-8 -translate-x-1/2 z-10">
+                    <div
+                      className={`size-12 rounded-full bg-gradient-primary flex items-center justify-center font-display font-bold text-primary-foreground ${show ? "pt-pop" : "scale-0"}`}
+                    >
+                      {i + 1}
+                    </div>
+                  </div>
+
+                  {/* card */}
+                  <div
+                    className={`ml-20 md:ml-0 md:w-[45%] glass rounded-2xl p-6 ${show ? (left ? "pt-l" : "pt-r") : "opacity-0"}`}
+                  >
+                    <div className="size-10 rounded-lg bg-gradient-primary flex items-center justify-center mb-4">
+                      <s.icon className="size-5 text-primary-foreground" />
+                    </div>
+                    <h3 className="font-display font-bold text-xl mb-2">{s.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="text-center mt-14">
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-2 bg-gradient-primary text-primary-foreground font-medium px-6 py-3 rounded-lg shadow-glow hover:scale-[1.02] transition-transform"
+          >
+            Start with a free call <ArrowRight className="size-4" />
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 function App() {
   // Call popup: opens on page load, closes with the X
@@ -432,24 +571,6 @@ function App() {
               { img: landingImg, title: "Landing Page Development" },
               { img: businessImg, title: "Business Website Development" },
             ].map((service) => (
-              // <div
-              //   key={service.title}
-              //   className="glass card-hover rounded-2xl p-6"
-              // >
-              //   <div className="text-4xl mb-4">
-              //     {service.icon}
-              //   </div>
-
-              //   <h3 className="font-display font-bold text-xl mb-3">
-              //     {service.title}
-              //   </h3>
-
-              //   <p className="text-sm text-muted-foreground leading-relaxed">
-              //     Professional, mobile-friendly and SEO-optimized websites designed
-              //     to help businesses grow and attract more customers online.
-              //   </p>
-              // </div>
-
               <div
                 key={service.title}
                 className="glass card-hover rounded-2xl overflow-hidden"
@@ -477,174 +598,165 @@ function App() {
         </div>
       </section>
 
+      {/* Process */}
+      <ProcessTimeline />
+
       {/* Contact */}
-      {/* Contact */}
-<section id="contact" className="py-24 px-6">
-  <div className="mx-auto max-w-4xl glass rounded-3xl p-8 md:p-12 relative overflow-hidden">
-    <div className="absolute inset-0 bg-gradient-primary opacity-10" />
+      <section id="contact" className="py-24 px-6">
+        <div className="mx-auto max-w-4xl glass rounded-3xl p-8 md:p-12 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-primary opacity-10" />
 
-    <div className="relative">
-      <div className="text-center mb-10">
-        <p className="text-sm uppercase tracking-widest text-primary mb-3">
-          Get in Touch
-        </p>
+          <div className="relative">
+            <div className="text-center mb-10">
+              <p className="text-sm uppercase tracking-widest text-primary mb-3">
+                Get in Touch
+              </p>
 
-        <h2 className="text-4xl md:text-5xl font-bold mb-4">
-          Let's <span className="text-gradient">connect</span> & build
-          something amazing 🚀
-        </h2>
+              <h2 className="text-4xl md:text-5xl font-bold mb-4">
+                Let's <span className="text-gradient">connect</span> & build
+                something amazing 🚀
+              </h2>
 
-        <p className="text-muted-foreground">
-          Have a project in mind? Send me a message and I'll get back to you.
-        </p>
-      </div>
+              <p className="text-muted-foreground">
+                Have a project in mind? Send me a message and I'll get back to
+                you.
+              </p>
+            </div>
 
-      <form
-        action="https://formsubmit.co/adityavajale6@gmail.com"
-        method="POST"
-        className="max-w-2xl mx-auto space-y-5"
-      >
-        {/* FormSubmit settings */}
-        <input
-          type="hidden"
-          name="_subject"
-          value="New Website Inquiry - Aditya Vajale Portfolio"
-        />
+            <form
+              action="https://formsubmit.co/adityavajale6@gmail.com"
+              method="POST"
+              className="max-w-2xl mx-auto space-y-5"
+            >
+              {/* FormSubmit settings */}
+              <input
+                type="hidden"
+                name="_subject"
+                value="New Website Inquiry - Aditya Vajale Portfolio"
+              />
 
-        <input
-          type="hidden"
-          name="_captcha"
-          value="false"
-        />
+              <input type="hidden" name="_captcha" value="false" />
 
-        <input
-          type="hidden"
-          name="_template"
-          value="table"
-        />
+              <input type="hidden" name="_template" value="table" />
 
-        <input
-          type="hidden"
-          name="_next"
-          value="https://adityavajale.netlify.app/#contact"
-        />
+              <input
+                type="hidden"
+                name="_next"
+                value="https://adityavajale.netlify.app/#contact"
+              />
 
-        <div className="grid md:grid-cols-2 gap-5">
-          <div>
-            <label className="block text-sm font-medium mb-2">
-              Your Name
-            </label>
+              <div className="grid md:grid-cols-2 gap-5">
+                <div>
+                  <label className="block text-sm font-medium mb-2">
+                    Your Name
+                  </label>
 
-            <input
-              type="text"
-              name="name"
-              required
-              placeholder="Enter your name"
-              className="w-full rounded-xl border border-border bg-background/50 px-4 py-3 outline-none focus:border-primary transition"
-            />
-          </div>
+                  <input
+                    type="text"
+                    name="name"
+                    required
+                    placeholder="Enter your name"
+                    className="w-full rounded-xl border border-border bg-background/50 px-4 py-3 outline-none focus:border-primary transition"
+                  />
+                </div>
 
-          <div>
-            <label className="block text-sm font-medium mb-2">
-              Email Address
-            </label>
+                <div>
+                  <label className="block text-sm font-medium mb-2">
+                    Email Address
+                  </label>
 
-            <input
-              type="email"
-              name="email"
-              required
-              placeholder="you@example.com"
-              className="w-full rounded-xl border border-border bg-background/50 px-4 py-3 outline-none focus:border-primary transition"
-            />
-          </div>
-        </div>
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    placeholder="you@example.com"
+                    className="w-full rounded-xl border border-border bg-background/50 px-4 py-3 outline-none focus:border-primary transition"
+                  />
+                </div>
+              </div>
 
-        <div>
-          <label className="block text-sm font-medium mb-2">
-            Phone Number
-          </label>
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  Phone Number
+                </label>
 
-          <input
-            type="tel"
-            name="phone"
-            placeholder="+91 XXXXX XXXXX"
-            className="w-full rounded-xl border border-border bg-background/50 px-4 py-3 outline-none focus:border-primary transition"
-          />
-        </div>
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="+91 XXXXX XXXXX"
+                  className="w-full rounded-xl border border-border bg-background/50 px-4 py-3 outline-none focus:border-primary transition"
+                />
+              </div>
 
-        <div>
-          <label className="block text-sm font-medium mb-2">
-            Message
-          </label>
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  Message
+                </label>
 
-          <textarea
-            name="message"
-            required
-            rows={5}
-            placeholder="Tell me about your project..."
-            className="w-full rounded-xl border border-border bg-background/50 px-4 py-3 outline-none focus:border-primary transition resize-none"
-          />
-        </div>
+                <textarea
+                  name="message"
+                  required
+                  rows={5}
+                  placeholder="Tell me about your project..."
+                  className="w-full rounded-xl border border-border bg-background/50 px-4 py-3 outline-none focus:border-primary transition resize-none"
+                />
+              </div>
 
-        <button
-          type="submit"
-          className="w-full rounded-xl bg-primary text-primary-foreground py-3.5 font-semibold hover:opacity-90 transition"
-        >
-          Send Message
-        </button>
-      </form>
+              <button
+                type="submit"
+                className="w-full rounded-xl bg-primary text-primary-foreground py-3.5 font-semibold hover:opacity-90 transition"
+              >
+                Send Message
+              </button>
+            </form>
 
-      {/* Direct contact */}
-      <div className="grid sm:grid-cols-3 gap-4 max-w-2xl mx-auto mt-8">
-        <a
-          href="mailto:adityavajale6@gmail.com"
-          className="glass card-hover rounded-xl p-4 flex items-center gap-3"
-        >
-          <Mail className="size-5 text-primary" />
-          <div>
-            <div className="text-xs text-muted-foreground">Email</div>
-            <div className="text-sm font-medium truncate">
-              adityavajale6@gmail.com
+            {/* Direct contact */}
+            <div className="grid sm:grid-cols-3 gap-4 max-w-2xl mx-auto mt-8">
+              <a
+                href="mailto:adityavajale6@gmail.com"
+                className="glass card-hover rounded-xl p-4 flex items-center gap-3"
+              >
+                <Mail className="size-5 text-primary" />
+                <div>
+                  <div className="text-xs text-muted-foreground">Email</div>
+                  <div className="text-sm font-medium truncate">
+                    adityavajale6@gmail.com
+                  </div>
+                </div>
+              </a>
+
+              <a
+                href="tel:+917972503835"
+                className="glass card-hover rounded-xl p-4 flex items-center gap-3"
+              >
+                <Phone className="size-5 text-primary" />
+                <div>
+                  <div className="text-xs text-muted-foreground">Phone</div>
+                  <div className="text-sm font-medium">+91 7972503835</div>
+                </div>
+              </a>
+
+              <a
+                href="https://www.linkedin.com/in/aditya-vajale-376416294"
+                target="_blank"
+                rel="noreferrer"
+                className="glass card-hover rounded-xl p-4 flex items-center gap-3"
+              >
+                <Linkedin className="size-5 text-primary" />
+                <div>
+                  <div className="text-xs text-muted-foreground">LinkedIn</div>
+                  <div className="text-sm font-medium">aditya-vajale</div>
+                </div>
+              </a>
             </div>
           </div>
-        </a>
+        </div>
+      </section>
 
-        <a
-          href="tel:+917972503835"
-          className="glass card-hover rounded-xl p-4 flex items-center gap-3"
-        >
-          <Phone className="size-5 text-primary" />
-          <div>
-            <div className="text-xs text-muted-foreground">Phone</div>
-            <div className="text-sm font-medium">
-              +91 7972503835
-            </div>
-          </div>
-        </a>
-
-        <a
-          href="https://www.linkedin.com/in/aditya-vajale-376416294"
-          target="_blank"
-          rel="noreferrer"
-          className="glass card-hover rounded-xl p-4 flex items-center gap-3"
-        >
-          <Linkedin className="size-5 text-primary" />
-          <div>
-            <div className="text-xs text-muted-foreground">LinkedIn</div>
-            <div className="text-sm font-medium">
-              aditya-vajale
-            </div>
-          </div>
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer className="py-8 px-6 text-center text-sm text-muted-foreground border-t border-border">
-  © {new Date().getFullYear()} Aditya Vajale | Full Stack Developer in Pune,
-  Maharashtra
-</footer>
+      <footer className="py-8 px-6 text-center text-sm text-muted-foreground border-t border-border">
+        © {new Date().getFullYear()} Aditya Vajale | Full Stack Developer in
+        Pune, Maharashtra
+      </footer>
     </div>
   );
 }
