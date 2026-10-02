@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   Github,
   Linkedin,
@@ -9,6 +10,7 @@ import {
   Palette,
   Brain,
   ExternalLink,
+  X,
 } from "lucide-react";
 import profileImg from "./assets/profile.jpg";
 import unitrackImg from "./assets/unitrack.jpg";
@@ -116,8 +118,55 @@ const projects = [
 ];
 
 function App() {
+  // Call popup: opens on page load, closes with the X
+  const [showCall, setShowCall] = useState(false);
+
+  useEffect(() => {
+    const t = setTimeout(() => setShowCall(true), 800);
+    return () => clearTimeout(t);
+  }, []);
+
   return (
     <div className="min-h-screen">
+      {/* Call popup */}
+      {showCall && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center px-6 bg-black/60"
+          onClick={() => setShowCall(false)}
+        >
+          <div
+            className="glass relative w-full max-w-sm rounded-3xl p-8 text-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setShowCall(false)}
+              aria-label="Close"
+              className="absolute top-4 right-4 text-muted-foreground hover:text-foreground"
+            >
+              <X className="size-5" />
+            </button>
+
+            <div className="size-14 rounded-2xl bg-gradient-primary flex items-center justify-center mx-auto mb-5">
+              <Phone className="size-7 text-primary-foreground" />
+            </div>
+
+            <h3 className="font-display font-bold text-2xl mb-2">
+              Need a website for your business?
+            </h3>
+            <p className="text-sm text-muted-foreground mb-6">
+              Call me now for a free quote.
+            </p>
+
+            <a
+              href="tel:+917972503835"
+              className="inline-flex items-center justify-center gap-2 w-full bg-gradient-primary text-primary-foreground font-medium px-6 py-3 rounded-lg shadow-glow hover:scale-[1.02] transition-transform"
+            >
+              <Phone className="size-4" /> Call +91 7972503835
+            </a>
+          </div>
+        </div>
+      )}
+
       {/* Nav */}
       <header className="fixed top-0 left-0 right-0 z-50 glass">
         <div className="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
@@ -429,76 +478,173 @@ function App() {
       </section>
 
       {/* Contact */}
-      <section id="contact" className="py-24 px-6">
-        <div className="mx-auto max-w-4xl glass rounded-3xl p-10 md:p-16 text-center relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-primary opacity-10" />
-          <div className="relative">
-            <p className="text-sm uppercase tracking-widest text-primary mb-3">
-              Get in Touch
-            </p>
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              Let's <span className="text-gradient">connect</span> & build
-              something amazing 🚀
-            </h2>
-            <p className="text-muted-foreground mb-10">
-              Open to opportunities, collaborations, and chats over coffee.
-            </p>
-            <div className="grid sm:grid-cols-2 gap-4 max-w-xl mx-auto text-left">
-              <a
-                href="mailto:adityavajale6@gmail.com"
-                className="glass card-hover rounded-xl p-4 flex items-center gap-3"
-              >
-                <Mail className="size-5 text-primary" />
-                <div>
-                  <div className="text-xs text-muted-foreground">Email</div>
-                  <div className="text-sm font-medium truncate">
-                    adityavajale6@gmail.com
-                  </div>
-                </div>
-              </a>
-              <a
-                href="tel:+917972503835"
-                className="glass card-hover rounded-xl p-4 flex items-center gap-3"
-              >
-                <Phone className="size-5 text-primary" />
-                <div>
-                  <div className="text-xs text-muted-foreground">Phone</div>
-                  <div className="text-sm font-medium">+91 7972503835</div>
-                </div>
-              </a>
-              <a
-                href="https://www.linkedin.com/in/aditya-vajale-376416294"
-                target="_blank"
-                rel="noreferrer"
-                className="glass card-hover rounded-xl p-4 flex items-center gap-3"
-              >
-                <Linkedin className="size-5 text-primary" />
-                <div>
-                  <div className="text-xs text-muted-foreground">LinkedIn</div>
-                  <div className="text-sm font-medium">aditya-vajale</div>
-                </div>
-              </a>
-              <a
-                href="https://Github.com/AdityaVajale"
-                target="_blank"
-                rel="noreferrer"
-                className="glass card-hover rounded-xl p-4 flex items-center gap-3"
-              >
-                <Github className="size-5 text-primary" />
-                <div>
-                  <div className="text-xs text-muted-foreground">Github</div>
-                  <div className="text-sm font-medium">AdityaVajale</div>
-                </div>
-              </a>
-            </div>
+      {/* Contact */}
+<section id="contact" className="py-24 px-6">
+  <div className="mx-auto max-w-4xl glass rounded-3xl p-8 md:p-12 relative overflow-hidden">
+    <div className="absolute inset-0 bg-gradient-primary opacity-10" />
+
+    <div className="relative">
+      <div className="text-center mb-10">
+        <p className="text-sm uppercase tracking-widest text-primary mb-3">
+          Get in Touch
+        </p>
+
+        <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          Let's <span className="text-gradient">connect</span> & build
+          something amazing 🚀
+        </h2>
+
+        <p className="text-muted-foreground">
+          Have a project in mind? Send me a message and I'll get back to you.
+        </p>
+      </div>
+
+      <form
+        action="https://formsubmit.co/adityavajale6@gmail.com"
+        method="POST"
+        className="max-w-2xl mx-auto space-y-5"
+      >
+        {/* FormSubmit settings */}
+        <input
+          type="hidden"
+          name="_subject"
+          value="New Website Inquiry - Aditya Vajale Portfolio"
+        />
+
+        <input
+          type="hidden"
+          name="_captcha"
+          value="false"
+        />
+
+        <input
+          type="hidden"
+          name="_template"
+          value="table"
+        />
+
+        <input
+          type="hidden"
+          name="_next"
+          value="https://adityavajale.netlify.app/#contact"
+        />
+
+        <div className="grid md:grid-cols-2 gap-5">
+          <div>
+            <label className="block text-sm font-medium mb-2">
+              Your Name
+            </label>
+
+            <input
+              type="text"
+              name="name"
+              required
+              placeholder="Enter your name"
+              className="w-full rounded-xl border border-border bg-background/50 px-4 py-3 outline-none focus:border-primary transition"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-2">
+              Email Address
+            </label>
+
+            <input
+              type="email"
+              name="email"
+              required
+              placeholder="you@example.com"
+              className="w-full rounded-xl border border-border bg-background/50 px-4 py-3 outline-none focus:border-primary transition"
+            />
           </div>
         </div>
-      </section>
 
-      <footer className="py-8 px-6 text-center text-sm text-muted-foreground border-t border-border">
-        © {new Date().getFullYear()} Aditya Vajale | Full Stack Developer in
-        Pune, Maharashtra
-      </footer>
+        <div>
+          <label className="block text-sm font-medium mb-2">
+            Phone Number
+          </label>
+
+          <input
+            type="tel"
+            name="phone"
+            placeholder="+91 XXXXX XXXXX"
+            className="w-full rounded-xl border border-border bg-background/50 px-4 py-3 outline-none focus:border-primary transition"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium mb-2">
+            Message
+          </label>
+
+          <textarea
+            name="message"
+            required
+            rows={5}
+            placeholder="Tell me about your project..."
+            className="w-full rounded-xl border border-border bg-background/50 px-4 py-3 outline-none focus:border-primary transition resize-none"
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="w-full rounded-xl bg-primary text-primary-foreground py-3.5 font-semibold hover:opacity-90 transition"
+        >
+          Send Message
+        </button>
+      </form>
+
+      {/* Direct contact */}
+      <div className="grid sm:grid-cols-3 gap-4 max-w-2xl mx-auto mt-8">
+        <a
+          href="mailto:adityavajale6@gmail.com"
+          className="glass card-hover rounded-xl p-4 flex items-center gap-3"
+        >
+          <Mail className="size-5 text-primary" />
+          <div>
+            <div className="text-xs text-muted-foreground">Email</div>
+            <div className="text-sm font-medium truncate">
+              adityavajale6@gmail.com
+            </div>
+          </div>
+        </a>
+
+        <a
+          href="tel:+917972503835"
+          className="glass card-hover rounded-xl p-4 flex items-center gap-3"
+        >
+          <Phone className="size-5 text-primary" />
+          <div>
+            <div className="text-xs text-muted-foreground">Phone</div>
+            <div className="text-sm font-medium">
+              +91 7972503835
+            </div>
+          </div>
+        </a>
+
+        <a
+          href="https://www.linkedin.com/in/aditya-vajale-376416294"
+          target="_blank"
+          rel="noreferrer"
+          className="glass card-hover rounded-xl p-4 flex items-center gap-3"
+        >
+          <Linkedin className="size-5 text-primary" />
+          <div>
+            <div className="text-xs text-muted-foreground">LinkedIn</div>
+            <div className="text-sm font-medium">
+              aditya-vajale
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer className="py-8 px-6 text-center text-sm text-muted-foreground border-t border-border">
+  © {new Date().getFullYear()} Aditya Vajale | Full Stack Developer in Pune,
+  Maharashtra
+</footer>
     </div>
   );
 }
