@@ -91,7 +91,6 @@ const skills = [
 ];
 
 const projects = [
-
   {
     emoji: "🍰",
     title: "SweetCrumbs",
@@ -101,7 +100,6 @@ const projects = [
     live: "https://demo-cake-store-eight.vercel.app/",
   },
   {
-
     emoji: "🚀",
     title: "UniTrack",
     desc: "Student management system with full stack architecture.",
@@ -121,17 +119,41 @@ const projects = [
     desc: "To-Do list for managing your day to day tasks.",
     tags: ["HTML", "JavaScript"],
     img: todoImg,
-  }
+  },
 ];
 
 function ProcessTimeline() {
   const steps = [
-    { icon: MessageCircle, title: "Free Consultation", desc: "Tell me about your business, your customers and what you want your website to do. No cost, no pressure." },
-    { icon: FileText, title: "Quote & Timeline", desc: "You get a fixed price and a delivery date before any work starts, so there are no surprises." },
-    { icon: Laptop, title: "Design & Development", desc: "I build your mobile-friendly, SEO-ready website using your logo, photos and content." },
-    { icon: CheckCircle2, title: "Review & Changes", desc: "You check the website and I make the changes you ask for until you are fully happy." },
-    { icon: Rocket, title: "Launch", desc: "Your website goes live with domain and hosting set up, and your Google Business profile connected." },
-    { icon: LifeBuoy, title: "Support", desc: "I stay available after launch for updates, fixes and any help you need." },
+    {
+      icon: MessageCircle,
+      title: "Free Consultation",
+      desc: "Tell me about your business, your customers and what you want your website to do. No cost, no pressure.",
+    },
+    {
+      icon: FileText,
+      title: "Quote & Timeline",
+      desc: "You get a fixed price and a delivery date before any work starts, so there are no surprises.",
+    },
+    {
+      icon: Laptop,
+      title: "Design & Development",
+      desc: "I build your mobile-friendly, SEO-ready website using your logo, photos and content.",
+    },
+    {
+      icon: CheckCircle2,
+      title: "Review & Changes",
+      desc: "You check the website and I make the changes you ask for until you are fully happy.",
+    },
+    {
+      icon: Rocket,
+      title: "Launch",
+      desc: "Your website goes live with domain and hosting set up, and your Google Business profile connected.",
+    },
+    {
+      icon: LifeBuoy,
+      title: "Support",
+      desc: "I stay available after launch for updates, fixes and any help you need.",
+    },
   ];
 
   const [visible, setVisible] = useState([]);
@@ -149,7 +171,7 @@ function ProcessTimeline() {
           }
         });
       },
-      { threshold: 0.35 }
+      { threshold: 0.35 },
     );
     stepRefs.current.forEach((el) => el && io.observe(el));
     return () => io.disconnect();
@@ -192,7 +214,8 @@ function ProcessTimeline() {
             How I Work
           </p>
           <h2 className="text-4xl md:text-5xl font-bold">
-            From first call to <span className="text-gradient">live website</span>
+            From first call to{" "}
+            <span className="text-gradient">live website</span>
           </h2>
           <p className="mt-6 text-lg text-muted-foreground max-w-3xl mx-auto">
             A simple, clear process so you always know what happens next.
@@ -234,8 +257,12 @@ function ProcessTimeline() {
                     <div className="size-10 rounded-lg bg-gradient-primary flex items-center justify-center mb-4">
                       <s.icon className="size-5 text-primary-foreground" />
                     </div>
-                    <h3 className="font-display font-bold text-xl mb-2">{s.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
+                    <h3 className="font-display font-bold text-xl mb-2">
+                      {s.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {s.desc}
+                    </p>
                   </div>
                 </div>
               );
@@ -381,28 +408,322 @@ function App() {
 
       {/* About */}
       <section id="about" className="py-24 px-6">
-        <div className="mx-auto max-w-5xl text-center">
-          <p className="text-sm uppercase tracking-widest text-primary mb-3">
-            About Me
-          </p>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Building things,{" "}
-            <span className="text-gradient">one line at a time</span>
-          </h2>
-          I'm a <b>Freelance Full Stack Developer based </b>in{" "}
-          <b>Thergaon, Pune. </b>I help salons, cafes, clinics, restaurants and
-          local businesses build professional websites that increase their
-          online presence and generate more customer inquiries. From simple
-          business websites to custom web applications, I focus on
-          <b>creating fast, mobile-friendly </b>and{" "}
-          <b>SEO-optimized solutions.</b>
-          <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
-            {values.map((v) => (
-              <div key={v.label} className="glass card-hover rounded-2xl p-6">
-                <div className="text-4xl mb-3">{v.emoji}</div>
-                <div className="font-semibold">{v.label}</div>
+        <style>{`
+          @keyframes aboutReveal {
+            0% {
+              opacity: 0;
+              transform: translateX(-100px);
+              filter: blur(8px);
+            }
+
+            70% {
+              opacity: 1;
+              transform: translateX(8px);
+              filter: blur(0);
+            }
+
+            100% {
+              opacity: 1;
+              transform: translateX(0);
+              filter: blur(0);
+            }
+          }
+
+          @keyframes aboutLine {
+            0% {
+              transform: scaleY(0);
+              transform-origin: top;
+            }
+
+            100% {
+              transform: scaleY(1);
+              transform-origin: top;
+            }
+          }
+
+          @keyframes aboutNumber {
+            0% {
+              opacity: 0;
+              transform: translateX(-20px);
+            }
+
+            100% {
+              opacity: 1;
+              transform: translateX(0);
+            }
+          }
+
+          @keyframes aboutAccent {
+            0%, 100% {
+              opacity: .25;
+              transform: translateX(0);
+            }
+
+            50% {
+              opacity: .8;
+              transform: translateX(8px);
+            }
+          }
+
+          .about-main {
+            animation:
+              aboutReveal
+              .9s
+              cubic-bezier(.22,1,.36,1)
+              both;
+          }
+
+          .about-line {
+            animation:
+              aboutLine
+              1s
+              cubic-bezier(.22,1,.36,1)
+              .15s
+              both;
+          }
+
+          .about-number {
+            animation:
+              aboutNumber
+              .5s
+              cubic-bezier(.22,1,.36,1)
+              both;
+          }
+
+          .about-accent {
+            animation:
+              aboutAccent
+              3s
+              ease-in-out
+              infinite;
+          }
+
+          .about-value {
+            opacity: 0;
+            transform: translateX(-70px);
+            animation:
+              aboutReveal
+              .7s
+              cubic-bezier(.22,1,.36,1)
+              forwards;
+          }
+
+          .about-value:hover {
+            transform: translateX(10px);
+          }
+
+          .about-value:hover .about-arrow {
+            transform: translateX(6px);
+          }
+
+          .about-arrow {
+            transition: transform .3s ease;
+          }
+
+          @media (prefers-reduced-motion: reduce) {
+            .about-main,
+            .about-line,
+            .about-number,
+            .about-accent,
+            .about-value {
+              animation: none !important;
+              opacity: 1 !important;
+              transform: none !important;
+              filter: none !important;
+            }
+          }
+
+          @media (max-width: 767px) {
+            .about-value:hover {
+              transform: translateX(4px);
+            }
+          }
+        `}</style>
+
+        <div className="mx-auto max-w-6xl">
+          {/* Main About Layout */}
+          <div className="grid lg:grid-cols-[120px_1fr] gap-10 lg:gap-16">
+            {/* Editorial Side Marker */}
+            <div className="hidden lg:flex flex-col items-center">
+              <div className="about-line w-px h-32 bg-gradient-primary" />
+
+              <span
+                className="
+                  about-number
+                  mt-6
+                  text-xs
+                  uppercase
+                  tracking-[0.35em]
+                  text-muted-foreground
+                  [writing-mode:vertical-rl]
+                "
+              >
+                About Me
+              </span>
+
+              <span className="mt-6 text-xs font-mono text-primary">01</span>
+            </div>
+
+            {/* Main Content */}
+            <div className="about-main">
+              {/* Heading */}
+              <div className="max-w-4xl">
+                <p className="lg:hidden text-sm uppercase tracking-widest text-primary mb-3">
+                  About Me
+                </p>
+
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                  Building things,
+                  <br />
+                  <span className="text-gradient">one line at a time.</span>
+                </h2>
               </div>
-            ))}
+
+              {/* About Text */}
+              <div className="mt-8 max-w-4xl">
+                <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
+                  I'm a{" "}
+                  <b className="text-foreground">
+                    Freelance Full Stack Developer
+                  </b>{" "}
+                  based in <b className="text-foreground">Thergaon, Pune.</b> I
+                  help salons, cafes, clinics, restaurants and local businesses
+                  build professional websites that strengthen their online
+                  presence and generate more customer inquiries.
+                </p>
+
+                <p className="mt-5 text-base md:text-lg text-muted-foreground leading-relaxed">
+                  From business websites and landing pages to custom web
+                  applications, I focus on building{" "}
+                  <b className="text-foreground">fast, mobile-friendly</b> and{" "}
+                  <b className="text-foreground">SEO-optimized solutions</b>{" "}
+                  with a clean and practical user experience.
+                </p>
+              </div>
+
+              {/* Values / Principles */}
+              <div className="mt-14">
+                <div className="flex items-center gap-4 mb-5">
+                  <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">
+                    What drives my work
+                  </span>
+
+                  <div className="h-px flex-1 bg-border" />
+                </div>
+
+                <div className="border-t border-border">
+                  {values.map((v, index) => (
+                    <div
+                      key={v.label}
+                      className="
+                        about-value
+                        group
+                        relative
+                        flex
+                        items-center
+                        justify-between
+                        py-5
+                        border-b
+                        border-border
+                        cursor-default
+                        transition-all
+                        duration-300
+                      "
+                      style={{
+                        animationDelay: `${index * 160 + 450}ms`,
+                      }}
+                    >
+                      {/* Left */}
+                      <div className="flex items-center gap-5">
+                        <span
+                          className="
+                            text-xs
+                            font-mono
+                            text-muted-foreground
+                            w-8
+                          "
+                        >
+                          0{index + 1}
+                        </span>
+
+                        <span
+                          className="
+                            text-lg
+                            md:text-xl
+                            font-display
+                            font-semibold
+                            transition-colors
+                            duration-300
+                            group-hover:text-primary
+                          "
+                        >
+                          {v.label}
+                        </span>
+                      </div>
+
+                      {/* Right */}
+                      <div className="flex items-center gap-4">
+                        <span
+                          className="
+                            hidden
+                            sm:block
+                            text-xs
+                            uppercase
+                            tracking-widest
+                            text-muted-foreground
+                            opacity-0
+                            group-hover:opacity-100
+                            transition-opacity
+                            duration-300
+                          "
+                        >
+                          principle
+                        </span>
+
+                        <ArrowRight
+                          className="
+                            about-arrow
+                            size-4
+                            text-muted-foreground
+                            group-hover:text-primary
+                          "
+                        />
+                      </div>
+
+                      {/* Moving accent */}
+                      <div
+                        className="
+                          about-accent
+                          absolute
+                          left-0
+                          bottom-0
+                          h-px
+                          w-16
+                          bg-gradient-primary
+                          opacity-0
+                          group-hover:opacity-100
+                          transition-opacity
+                          duration-300
+                        "
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Small developer statement */}
+              <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs uppercase tracking-widest text-muted-foreground">
+                <span>Clean interfaces</span>
+
+                <span className="size-1 rounded-full bg-primary" />
+
+                <span>Practical solutions</span>
+
+                <span className="size-1 rounded-full bg-primary" />
+
+                <span>Built for real users</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -437,101 +758,551 @@ function App() {
       </section>
 
       {/* Skills */}
+      {/* Skills */}
       <section id="skills" className="py-24 px-6">
+        <style>{`
+          @keyframes techNotebookReveal {
+            0% {
+              opacity: 0;
+              transform: translateY(120px) scale(.88) rotate(-3deg);
+              filter: blur(8px);
+            }
+
+            60% {
+              opacity: 1;
+              filter: blur(0);
+            }
+
+            100% {
+              opacity: 1;
+              transform: translateY(0) scale(1) rotate(0deg);
+              filter: blur(0);
+            }
+          }
+
+          @keyframes techLeft {
+            0% {
+              opacity: 0;
+              transform: translateX(-150px) rotate(-8deg) scale(.85);
+            }
+
+            70% {
+              opacity: 1;
+              transform: translateX(15px) rotate(2deg) scale(1.02);
+            }
+
+            100% {
+              opacity: 1;
+              transform: translateX(0) rotate(-1deg) scale(1);
+            }
+          }
+
+          @keyframes techRight {
+            0% {
+              opacity: 0;
+              transform: translateX(150px) rotate(8deg) scale(.85);
+            }
+
+            70% {
+              opacity: 1;
+              transform: translateX(-15px) rotate(-2deg) scale(1.02);
+            }
+
+            100% {
+              opacity: 1;
+              transform: translateX(0) rotate(1deg) scale(1);
+            }
+          }
+
+          @keyframes techTop {
+            0% {
+              opacity: 0;
+              transform: translateY(-120px) rotate(6deg) scale(.85);
+            }
+
+            70% {
+              opacity: 1;
+              transform: translateY(12px) rotate(-2deg) scale(1.02);
+            }
+
+            100% {
+              opacity: 1;
+              transform: translateY(0) rotate(-1deg) scale(1);
+            }
+          }
+
+          @keyframes techBottom {
+            0% {
+              opacity: 0;
+              transform: translateY(130px) rotate(-7deg) scale(.85);
+            }
+
+            70% {
+              opacity: 1;
+              transform: translateY(-10px) rotate(2deg) scale(1.02);
+            }
+
+            100% {
+              opacity: 1;
+              transform: translateY(0) rotate(1deg) scale(1);
+            }
+          }
+
+          @keyframes techChip {
+            0% {
+              opacity: 0;
+              transform: translateY(12px) scale(.7);
+            }
+
+            70% {
+              transform: translateY(-3px) scale(1.06);
+            }
+
+            100% {
+              opacity: 1;
+              transform: translateY(0) scale(1);
+            }
+          }
+
+          @keyframes techPin {
+            0% {
+              transform: scale(0) rotate(-90deg);
+              opacity: 0;
+            }
+
+            70% {
+              transform: scale(1.2) rotate(15deg);
+              opacity: 1;
+            }
+
+            100% {
+              transform: scale(1) rotate(0deg);
+              opacity: 1;
+            }
+          }
+
+          @keyframes notebookFloat {
+            0%, 100% {
+              transform: translateY(0);
+            }
+
+            50% {
+              transform: translateY(-5px);
+            }
+          }
+
+          @keyframes notebookGlow {
+            0%, 100% {
+              opacity: .15;
+              transform: scale(.95);
+            }
+
+            50% {
+              opacity: .3;
+              transform: scale(1.05);
+            }
+          }
+
+          .tech-notebook {
+            animation:
+              techNotebookReveal
+              1s
+              cubic-bezier(.22,1,.36,1)
+              both,
+              notebookFloat
+              7s
+              ease-in-out
+              1.2s
+              infinite;
+          }
+
+          .tech-glow {
+            animation: notebookGlow 5s ease-in-out infinite;
+          }
+
+          .tech-note {
+            opacity: 0;
+            transition:
+              transform .4s cubic-bezier(.22,1,.36,1),
+              box-shadow .4s ease,
+              border-color .3s ease;
+          }
+
+          .tech-note-1 {
+            animation:
+              techLeft
+              .9s
+              cubic-bezier(.22,1,.36,1)
+              .35s
+              forwards;
+          }
+
+          .tech-note-2 {
+            animation:
+              techRight
+              .9s
+              cubic-bezier(.22,1,.36,1)
+              .6s
+              forwards;
+          }
+
+          .tech-note-3 {
+            animation:
+              techTop
+              .9s
+              cubic-bezier(.22,1,.36,1)
+              .85s
+              forwards;
+          }
+
+          .tech-note-4 {
+            animation:
+              techBottom
+              .9s
+              cubic-bezier(.22,1,.36,1)
+              1.1s
+              forwards;
+          }
+
+          .tech-note:hover {
+            transform:
+              translateY(-12px)
+              rotate(0deg)
+              scale(1.035);
+
+            box-shadow:
+              0 25px 55px rgba(0,0,0,.25),
+              0 0 35px rgba(120,120,255,.12);
+
+            border-color: hsl(var(--primary) / .45);
+            z-index: 30;
+          }
+
+          .tech-pin {
+            animation:
+              techPin
+              .5s
+              cubic-bezier(.22,1,.36,1)
+              both;
+          }
+
+          .tech-chip {
+            opacity: 0;
+            animation:
+              techChip
+              .45s
+              cubic-bezier(.22,1,.36,1)
+              forwards;
+          }
+
+          .tech-chip:hover {
+            transform: translateY(-4px) scale(1.05);
+          }
+
+          .tech-paper-line {
+            background-image:
+              linear-gradient(
+                to bottom,
+                transparent 0,
+                transparent 31px,
+                hsl(var(--border) / .35) 32px
+              );
+
+            background-size: 100% 32px;
+          }
+
+          @media (max-width: 767px) {
+
+            .tech-notebook {
+              animation:
+                techNotebookReveal
+                .8s
+                cubic-bezier(.22,1,.36,1)
+                both;
+            }
+
+            .tech-note-1,
+            .tech-note-2,
+            .tech-note-3,
+            .tech-note-4 {
+              animation:
+                techNotebookReveal
+                .7s
+                cubic-bezier(.22,1,.36,1)
+                forwards;
+            }
+
+            .tech-note:hover {
+              transform:
+                translateY(-6px)
+                scale(1.015);
+            }
+          }
+
+          @media (prefers-reduced-motion: reduce) {
+
+            .tech-notebook,
+            .tech-glow,
+            .tech-note,
+            .tech-pin,
+            .tech-chip {
+              animation: none !important;
+              opacity: 1 !important;
+              transform: none !important;
+              filter: none !important;
+            }
+          }
+        `}</style>
+
         <div className="mx-auto max-w-6xl">
+          {/* Section heading */}
           <div className="text-center mb-14">
             <p className="text-sm uppercase tracking-widest text-primary mb-3">
               My Skills
             </p>
+
             <h2 className="text-4xl md:text-5xl font-bold">
               Technologies I work with
             </h2>
+
+            <p className="mt-5 text-muted-foreground max-w-2xl mx-auto">
+              A practical toolkit I use to build modern, responsive and scalable
+              web applications.
+            </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {skills.map((s) => (
-              <div key={s.group} className="glass rounded-2xl p-6">
-                <h3 className="font-display font-bold text-lg mb-4 text-gradient">
-                  {s.group}
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {s.items.map((i) => (
+
+          {/* Notebook scene */}
+          <div className="relative max-w-5xl mx-auto">
+            {/* Ambient glow */}
+            <div
+              className="
+                tech-glow
+                absolute
+                -inset-10
+                rounded-[4rem]
+                bg-gradient-primary
+                blur-3xl
+                pointer-events-none
+              "
+            />
+
+            {/* Notebook */}
+            <div
+              className="
+                tech-notebook
+                relative
+                rounded-[2rem]
+                border
+                border-border
+                bg-card/60
+                backdrop-blur-xl
+                shadow-2xl
+                overflow-hidden
+              "
+            >
+              {/* Notebook header */}
+              <div
+                className="
+                  flex
+                  items-center
+                  justify-between
+                  px-6
+                  md:px-8
+                  py-4
+                  border-b
+                  border-border
+                  bg-secondary/50
+                "
+              >
+                <div className="flex items-center gap-4">
+                  <div className="flex gap-1.5">
+                    <span className="size-2.5 rounded-full bg-primary/70" />
+                    <span className="size-2.5 rounded-full bg-primary/40" />
+                    <span className="size-2.5 rounded-full bg-primary/20" />
+                  </div>
+
+                  <span className="text-xs uppercase tracking-widest text-muted-foreground">
+                    developer-toolkit.txt
+                  </span>
+                </div>
+
+                <span className="hidden sm:block text-xs font-mono text-muted-foreground">
+                  04 technologies
+                </span>
+              </div>
+
+              {/* Notebook paper */}
+              <div className="relative p-5 md:p-10 tech-paper-line">
+                {/* Notebook holes */}
+                <div className="hidden md:flex absolute left-3 top-0 bottom-0 w-4 flex-col justify-around py-8">
+                  {[1, 2, 3, 4, 5, 6].map((n) => (
                     <span
-                      key={i}
-                      className="text-sm px-3 py-1.5 rounded-lg bg-secondary border border-border"
-                    >
-                      {i}
-                    </span>
+                      key={n}
+                      className="
+                        size-2
+                        rounded-full
+                        border
+                        border-border
+                        bg-background
+                      "
+                    />
                   ))}
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Projects */}
-      <section id="projects" className="py-24 px-6">
-        <div className="mx-auto max-w-6xl">
-          <div className="text-center mb-14">
-            <p className="text-sm uppercase tracking-widest text-primary mb-3">
-              My Projects
-            </p>
-            <h2 className="text-4xl md:text-5xl font-bold">Selected work</h2>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((p) => (
-              <article
-                key={p.title}
-                className="glass card-hover rounded-2xl overflow-hidden flex flex-col"
+                {/* Notes */}
+                <div className="grid md:grid-cols-2 gap-8">
+                  {skills.map((skill, index) => {
+                    const noteClasses = [
+                      "tech-note-1 rotate-[-1deg]",
+                      "tech-note-2 rotate-[1deg]",
+                      "tech-note-3 rotate-[-1deg]",
+                      "tech-note-4 rotate-[1deg]",
+                    ];
+
+                    const noteBackgrounds = [
+                      "bg-primary/10",
+                      "bg-secondary",
+                      "bg-primary/5",
+                      "bg-secondary/70",
+                    ];
+
+                    return (
+                      <div
+                        key={skill.group}
+                        className={`
+                          tech-note
+                          ${noteClasses[index]}
+                          ${noteBackgrounds[index]}
+                          relative
+                          min-h-[230px]
+                          rounded-2xl
+                          border
+                          border-border
+                          p-7
+                          shadow-xl
+                          overflow-hidden
+                          cursor-default
+                        `}
+                      >
+                        {/* Paper shine */}
+                        <div
+                          className="
+                            absolute
+                            inset-0
+                            bg-gradient-to-br
+                            from-white/[.08]
+                            via-transparent
+                            to-transparent
+                            pointer-events-none
+                          "
+                        />
+
+                        {/* Pin */}
+                        <div
+                          className="
+                            tech-pin
+                            absolute
+                            top-5
+                            right-6
+                            size-4
+                            rounded-full
+                            bg-primary
+                            shadow-[0_3px_8px_rgba(0,0,0,.25)]
+                          "
+                          style={{
+                            animationDelay: `${index * 120 + 500}ms`,
+                          }}
+                        />
+
+                        {/* Number */}
+                        <span className="absolute top-5 left-7 text-xs font-mono text-muted-foreground">
+                          0{index + 1}
+                        </span>
+
+                        {/* Content */}
+                        <div className="relative pt-8">
+                          <h3 className="font-display font-bold text-2xl mb-6">
+                            {skill.group}
+                          </h3>
+
+                          <div className="flex flex-wrap gap-2.5">
+                            {skill.items.map((technology, techIndex) => (
+                              <span
+                                key={technology}
+                                className="
+                                  tech-chip
+                                  px-3.5
+                                  py-2
+                                  rounded-lg
+                                  border
+                                  border-border
+                                  bg-background/70
+                                  text-sm
+                                  font-medium
+                                  shadow-sm
+                                  transition-all
+                                  duration-200
+                                  hover:border-primary/50
+                                  hover:text-primary
+                                  hover:shadow-md
+                                  cursor-default
+                                "
+                                style={{
+                                  animationDelay: `
+                                    ${index * 180 + techIndex * 90 + 900}ms
+                                  `,
+                                }}
+                              >
+                                {technology}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Bottom metadata */}
+                        <div className="absolute bottom-5 left-7 right-7">
+                          <div className="h-px bg-border/60" />
+
+                          <div className="flex items-center justify-between mt-2">
+                            <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
+                              {index === 0 && "Core foundations"}
+                              {index === 1 && "User interfaces"}
+                              {index === 2 && "Application logic"}
+                              {index === 3 && "Development tools"}
+                            </p>
+
+                            <span className="text-[10px] font-mono text-muted-foreground">
+                              {skill.items.length.toString().padStart(2, "0")}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Notebook footer */}
+              <div
+                className="
+                  px-6
+                  md:px-8
+                  py-4
+                  border-t
+                  border-border
+                  flex
+                  items-center
+                  justify-between
+                  text-xs
+                  text-muted-foreground
+                  bg-secondary/30
+                "
               >
-                <div className="aspect-video overflow-hidden">
-                  <img
-                    src={p.img}
-                    alt={p.title}
-                    loading="lazy"
-                    width={1024}
-                    height={576}
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                  />
-                </div>
-                <div className="p-6 flex flex-col flex-1">
-                  <h3 className="font-display font-bold text-xl mb-2">
-                    {p.emoji} {p.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground mb-4">{p.desc}</p>
-                  <div className="flex flex-wrap gap-2 mb-5">
-                    {p.tags.map((t) => (
-                      <span
-                        key={t}
-                        className="text-xs px-2.5 py-1 rounded-md bg-secondary text-muted-foreground"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="mt-auto flex gap-3 text-sm">
-                    <a
-                      href={p.live}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-1.5 text-primary hover:underline"
-                    >
-                      <ExternalLink className="size-4" /> Live
-                    </a>
-                    {p.github && (
-                      <a
-                        href={p.github}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground"
-                      >
-                        <Github className="size-4" /> Github
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </article>
-            ))}
+                <span>Built with curiosity.</span>
+
+                <span className="font-mono">// always learning</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
