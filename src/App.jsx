@@ -736,7 +736,7 @@ function App() {
               What I Do Best
             </p>
             <h2 className="text-4xl md:text-5xl font-bold">
-              Turning ideas into scalable apps 🚀
+              Turning ideas into scalable apps
             </h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
